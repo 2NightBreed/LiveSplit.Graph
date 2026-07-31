@@ -37,6 +37,8 @@ public class GraphComponent : IComponent
     public TimeSpan GraphEdgeValue { get; set; }
     public float GraphEdgeMin { get; set; }
     public GraphSettings Settings { get; set; }
+    private bool _useIcons = false;
+    private int IconSize => 16;
 
     public GraphComponent(GraphSettings settings)
     {
@@ -99,6 +101,7 @@ public class GraphComponent : IComponent
         pen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
         pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
         var circleList = new List<PointF>();
+        var iconList = new List<Tuple<PointF, Image>>();
         if (Deltas.Count > 0)
         {
             float heightOne = graphHeight;
@@ -118,6 +121,7 @@ public class GraphComponent : IComponent
                 new(0, middle)
             };
             circleList.Add(new PointF(widthOne, heightOne));
+            iconList.Add(new Tuple<PointF, Image>(new PointF(0, heightOne), null));
 
             while (y < Deltas.Count)
             {
@@ -130,7 +134,14 @@ public class GraphComponent : IComponent
                 {
                     CalculateRightSideCoordinates(state, width, TotalDelta, graphEdge, graphHeight, ref heightTwo, ref widthTwo, y);
                     DrawFillBeneathGraph(g, TotalDelta, middle, brush, heightOne, heightTwo, widthOne, widthTwo, y, pointArray);
-                    AddGraphNode(g, state, comparison, pen, circleList, heightOne, heightTwo, widthOne, widthTwo, y);
+                    if (!_useIcons)
+                    {
+                        AddGraphNode(g, state, comparison, pen, circleList, heightOne, heightTwo, widthOne, widthTwo, y);
+                    }
+                    else
+                    {
+                        AddGraphNode(g, state, iconList, heightTwo, widthTwo, y);
+                    }
                     CalculateLeftSideCoordinates(state, width, TotalDelta, graphEdge, graphHeight, ref heightOne, ref widthOne, y);
                 }
                 else
@@ -141,7 +152,14 @@ public class GraphComponent : IComponent
                 y++;
             }
 
-            DrawCirclesAndLines(g, state, width, comparison, pen, brush, circleList);
+            if (!_useIcons)
+            {
+                DrawCirclesAndLines(g, state, width, comparison, pen, brush, circleList);
+            }
+            else
+            {
+                DrawCirclesAndLines(g, state, width, comparison, pen, brush, iconList);
+            }
         }
     }
 
@@ -185,6 +203,69 @@ public class GraphComponent : IComponent
     private void AddGraphNode(Graphics g, LiveSplitState state, string comparison, Pen pen, List<PointF> circleList, float heightOne, float heightTwo, float widthOne, float widthTwo, int y)
     {
         circleList.Add(new PointF(widthTwo, heightTwo));
+    }
+
+    private void AddGraphNode(Graphics g, LiveSplitState state, List<Tuple<PointF, Image>> iconList, float heightTwo, float widthTwo, int y)
+    {
+        iconList.Add(new Tuple<PointF, Image>(new PointF(widthTwo, heightTwo), y < state.Run.Count ? state.Run[y].Icon : null));
+    }
+
+    private void DrawCirclesAndLines(Graphics g, LiveSplitState state, float width, string comparison, Pen pen, SolidBrush brush, List<Tuple<PointF, Image>> iconList)
+    {
+        int i = Deltas.Count - 1;
+        iconList.Reverse();
+        Tuple<PointF, Image> previousIcon = iconList.FirstOrDefault();
+        if (previousIcon != null)
+        {
+            iconList.RemoveAt(0);
+        }
+
+        foreach (Tuple<PointF, Image> icon in iconList)
+        {
+            while (Deltas[i] == null)
+            {
+                i--;
+            }
+
+            Color color = LiveSplitStateHelper.GetSplitColor(state, Deltas[i].Value, i, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
+            pen.Color = brush.Color = color;
+            bool finalDelta = previousIcon.Item1.X == width && IsLiveDeltaActive;
+            if (!finalDelta && CheckBestSegment(state, i, state.CurrentTimingMethod))
+            {
+                pen.Color = brush.Color = Settings.GraphGoldColor;
+            }
+
+            DrawLineShadowed(g, pen, previousIcon.Item1.X, previousIcon.Item1.Y, icon.Item1.X, icon.Item1.Y, Settings.FlipGraph);
+            if (!finalDelta)
+            {
+                if (previousIcon.Item2 != null)
+                {
+                    DrawIcon(g, previousIcon.Item2, previousIcon.Item1.X - 2.5f, previousIcon.Item1.Y - 2.5f);
+                }
+                else
+                {
+                    DrawEllipseShadowed(g, brush, previousIcon.Item1.X - 2.5f, previousIcon.Item1.Y - 2.5f, 5, 5, Settings.FlipGraph);
+                }
+            }
+
+            previousIcon = icon;
+            i--;
+        }
+    }
+
+    private void DrawIcon(Graphics g, Image icon, float x, float y)
+    {
+        if (icon != null)
+        {
+            if (Settings.FlipGraph)
+            {
+                g.DrawImage(icon, x - (IconSize / 2), y + (IconSize / 2), IconSize, -IconSize);
+            }
+            else
+            {
+                g.DrawImage(icon, x - (IconSize / 2), y - (IconSize / 2), IconSize, IconSize);
+            }
+        }
     }
 
     private void CalculateLeftSideCoordinates(LiveSplitState state, float width, TimeSpan TotalDelta, float graphEdge, float GraphHeight, ref float heightOne, ref float widthOne, int y)
