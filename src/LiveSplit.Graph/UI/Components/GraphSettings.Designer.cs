@@ -59,6 +59,7 @@
             this.chkShowBestSegments = new System.Windows.Forms.CheckBox();
             this.lblBestSegmentColor = new System.Windows.Forms.Label();
             this.chkGraphDeltaColor = new System.Windows.Forms.CheckBox();
+            this.chkGraphDeltaFillColor = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkHeight)).BeginInit();
             this.SuspendLayout();
@@ -102,6 +103,7 @@
             this.tableLayoutPanel1.Controls.Add(this.chkShowBestSegments, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.lblBestSegmentColor, 3, 7);
             this.tableLayoutPanel1.Controls.Add(this.chkGraphDeltaColor, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.chkGraphDeltaFillColor, 3, 9);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -473,6 +475,18 @@
             this.chkGraphDeltaColor.Text = "Graph Delta Color";
             this.chkGraphDeltaColor.UseVisualStyleBackColor = true;
             // 
+            // chkGraphDeltaFillColor
+            // 
+            this.chkGraphDeltaFillColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkGraphDeltaFillColor.AutoSize = true;
+            this.chkGraphDeltaFillColor.Location = new System.Drawing.Point(238, 267);
+            this.chkGraphDeltaFillColor.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
+            this.chkGraphDeltaFillColor.Name = "chkGraphDeltaFillColor";
+            this.chkGraphDeltaFillColor.Size = new System.Drawing.Size(140, 17);
+            this.chkGraphDeltaFillColor.TabIndex = 33;
+            this.chkGraphDeltaFillColor.Text = "Graph Delta Fill Color";
+            this.chkGraphDeltaFillColor.UseVisualStyleBackColor = true;
+            // 
             // GraphSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -522,5 +536,6 @@
         private System.Windows.Forms.CheckBox chkShowBestSegments;
         private System.Windows.Forms.Label lblBestSegmentColor;
         private System.Windows.Forms.CheckBox chkGraphDeltaColor;
+        private System.Windows.Forms.CheckBox chkGraphDeltaFillColor;
     }
 }
