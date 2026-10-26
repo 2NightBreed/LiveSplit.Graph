@@ -15,6 +15,7 @@ public partial class GraphSettings : UserControl, ICloneable
     public float GraphWidth { get; set; }
     public float GraphWidthScaled { get => GraphWidth / 10; set => GraphWidth = value * 10; }
     public int IconSize { get; set; }
+    public int EndPointSize { get; set; }
 
     public Color BehindGraphColor { get; set; }
     public Color AheadGraphColor { get; set; }
@@ -47,6 +48,7 @@ public partial class GraphSettings : UserControl, ICloneable
         GraphHeight = 120;
         GraphWidth = 180;
         IconSize = 16;
+        EndPointSize = 5;
         BehindGraphColor = Color.FromArgb(115, 40, 40);
         AheadGraphColor = Color.FromArgb(40, 115, 52);
         GridlinesColor = Color.FromArgb(0x50, 0x0, 0x0, 0x0);
@@ -68,6 +70,7 @@ public partial class GraphSettings : UserControl, ICloneable
         Comparison = "Current Comparison";
 
         nmcIconSize.DataBindings.Add("Value", this, "IconSize", false, DataSourceUpdateMode.OnPropertyChanged);
+        nmcEndPointSize.DataBindings.Add("Value", this, "EndPointSize", false, DataSourceUpdateMode.OnPropertyChanged);
         btnAheadColor.DataBindings.Add("BackColor", this, "AheadGraphColor", false, DataSourceUpdateMode.OnPropertyChanged);
         btnBehindColor.DataBindings.Add("BackColor", this, "BehindGraphColor", false, DataSourceUpdateMode.OnPropertyChanged);
         btnGridlinesColor.DataBindings.Add("BackColor", this, "GridlinesColor", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -137,6 +140,7 @@ public partial class GraphSettings : UserControl, ICloneable
         GraphHeight = SettingsHelper.ParseFloat(element["Height"]);
         GraphWidth = SettingsHelper.ParseFloat(element["Width"]);
         IconSize = SettingsHelper.ParseInt(element["IconSize"], 16);
+        EndPointSize = SettingsHelper.ParseInt(element["EndPointSize"], 5);
         BehindGraphColor = SettingsHelper.ParseColor(element["BehindGraphColor"]);
         AheadGraphColor = SettingsHelper.ParseColor(element["AheadGraphColor"]);
         GridlinesColor = SettingsHelper.ParseColor(element["GridlinesColor"]);
@@ -187,6 +191,7 @@ public partial class GraphSettings : UserControl, ICloneable
         SettingsHelper.CreateSetting(document, parent, "Height", GraphHeight) ^
         SettingsHelper.CreateSetting(document, parent, "Width", GraphWidth) ^
         SettingsHelper.CreateSetting(document, parent, "IconSize", IconSize) ^
+        SettingsHelper.CreateSetting(document, parent, "EndPointSize", EndPointSize) ^
         SettingsHelper.CreateSetting(document, parent, "BehindGraphColor", BehindGraphColor) ^
         SettingsHelper.CreateSetting(document, parent, "AheadGraphColor", AheadGraphColor) ^
         SettingsHelper.CreateSetting(document, parent, "GridlinesColor", GridlinesColor) ^
