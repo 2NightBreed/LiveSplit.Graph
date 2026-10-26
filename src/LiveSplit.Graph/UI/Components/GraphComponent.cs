@@ -99,7 +99,7 @@ public class GraphComponent : IComponent
         pen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
         pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
         var circleList = new List<PointF>();
-        var iconList = new List<Tuple<PointF, Image>>();
+        var iconList = new List<Tuple<PointF, Image, int>>();
         if (Deltas.Count > 0)
         {
             float heightOne = graphHeight;
@@ -119,7 +119,7 @@ public class GraphComponent : IComponent
                 new(0, middle)
             };
             circleList.Add(new PointF(widthOne, heightOne));
-            iconList.Add(new Tuple<PointF, Image>(new PointF(0, heightOne), null));
+            iconList.Add(new Tuple<PointF, Image, int>(new PointF(0, heightOne), null, -1));
 
             while (y < Deltas.Count)
             {
@@ -276,26 +276,26 @@ public class GraphComponent : IComponent
         circleList.Add(new PointF(widthTwo, heightTwo));
     }
 
-    private void AddGraphNode(Graphics g, LiveSplitState state, List<Tuple<PointF, Image>> iconList, float heightTwo, float widthTwo, int y)
+    private void AddGraphNode(Graphics g, LiveSplitState state, List<Tuple<PointF, Image, int>> iconList, float heightTwo, float widthTwo, int y)
     {
         bool isLiveNode = y >= state.Run.Count && IsLiveDeltaActive;
         int splitIndex = isLiveNode ? state.CurrentSplitIndex : y;
 
         Image icon = 0 <= splitIndex && splitIndex < state.Run.Count ? state.Run[splitIndex].Icon : null;
-        iconList.Add(new Tuple<PointF, Image>(new PointF(widthTwo, heightTwo), icon));
+        iconList.Add(new Tuple<PointF, Image, int>(new PointF(widthTwo, heightTwo), icon, splitIndex));
     }
 
-    private void DrawCirclesAndLines(Graphics g, LiveSplitState state, float width, string comparison, Pen pen, SolidBrush brush, List<Tuple<PointF, Image>> iconList)
+    private void DrawCirclesAndLines(Graphics g, LiveSplitState state, float width, string comparison, Pen pen, SolidBrush brush, List<Tuple<PointF, Image, int>> iconList)
     {
         int i = Deltas.Count - 1;
         iconList.Reverse();
-        Tuple<PointF, Image> previousIcon = iconList.FirstOrDefault();
+        Tuple<PointF, Image, int> previousIcon = iconList.FirstOrDefault();
         if (previousIcon != null)
         {
             iconList.RemoveAt(0);
         }
 
-        foreach (Tuple<PointF, Image> icon in iconList)
+        foreach (Tuple<PointF, Image, int> icon in iconList)
         {
             while (Deltas[i] == null)
             {
@@ -318,13 +318,13 @@ public class GraphComponent : IComponent
             DrawLineShadowed(g, pen, previousIcon.Item1.X, previousIcon.Item1.Y, icon.Item1.X, icon.Item1.Y, Settings.FlipGraph);
             if (finalDelta && previousIcon.Item2 != null)
             {
-                DrawIcon(g, previousIcon.Item2, previousIcon.Item1.X - 2.5f, previousIcon.Item1.Y - 2.5f);
+                DrawIcon(g, previousIcon.Item2, previousIcon.Item1.X - 2.5f, previousIcon.Item1.Y - 2.5f, previousIcon.Item3, state);
             }
             else if (!finalDelta)
             {
                 if (previousIcon.Item2 != null)
                 {
-                    DrawIcon(g, previousIcon.Item2, previousIcon.Item1.X - 2.5f, previousIcon.Item1.Y - 2.5f);
+                    DrawIcon(g, previousIcon.Item2, previousIcon.Item1.X - 2.5f, previousIcon.Item1.Y - 2.5f, previousIcon.Item3, state);
                 }
                 else
                 {
@@ -337,18 +337,20 @@ public class GraphComponent : IComponent
         }
     }
 
-    private void DrawIcon(Graphics g, Image icon, float x, float y)
+    private void DrawIcon(Graphics g, Image icon, float x, float y, int splitIndex, LiveSplitState state)
     {
+        var isSplitBehind = splitIndex < state.CurrentSplitIndex;
+        var splitIcon = isSplitBehind && Settings.GrayscaleIcons ? LiveSplitStateHelper.ConvertImageToGrayscale(icon) : icon;
         if (icon != null)
         {
             var iconSize = Settings.IconSize;
             if (Settings.FlipGraph)
             {
-                g.DrawImage(icon, x - (iconSize / 2), y + (iconSize / 2), iconSize, -iconSize);
+                g.DrawImage(splitIcon, x - (iconSize / 2), y + (iconSize / 2), iconSize, -iconSize);
             }
             else
             {
-                g.DrawImage(icon, x - (iconSize / 2), y - (iconSize / 2), iconSize, iconSize);
+                g.DrawImage(splitIcon, x - (iconSize / 2), y - (iconSize / 2), iconSize, iconSize);
             }
         }
     }
