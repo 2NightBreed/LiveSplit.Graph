@@ -163,7 +163,13 @@ public class GraphComponent : IComponent
                 i--;
             }
 
-            pen.Color = brush.Color = Settings.GraphColor;
+            Color graphColor = Settings.GraphColor;
+            if (Settings.GraphDeltaColor)
+            {
+                graphColor = LiveSplitStateHelper.GetSplitColor(state, Deltas[i].Value, i, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
+            }
+
+            pen.Color = brush.Color = graphColor;
             bool finalDelta = previousCircle.X == width && IsLiveDeltaActive;
             if (!finalDelta && CheckBestSegment(state, i, state.CurrentTimingMethod))
             {

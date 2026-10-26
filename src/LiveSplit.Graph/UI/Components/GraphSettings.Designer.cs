@@ -58,6 +58,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.chkShowBestSegments = new System.Windows.Forms.CheckBox();
             this.lblBestSegmentColor = new System.Windows.Forms.Label();
+            this.chkGraphDeltaColor = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkHeight)).BeginInit();
             this.SuspendLayout();
@@ -100,10 +101,11 @@
             this.tableLayoutPanel1.Controls.Add(this.label12, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.chkShowBestSegments, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.lblBestSegmentColor, 3, 7);
+            this.tableLayoutPanel1.Controls.Add(this.chkGraphDeltaColor, 0, 9);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 9;
+            this.tableLayoutPanel1.RowCount = 10;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
@@ -113,7 +115,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 263);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 291);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnBestSegmentColor
@@ -298,7 +301,7 @@
             // 
             this.chkLiveGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chkLiveGraph.AutoSize = true;
-            this.chkLiveGraph.Location = new System.Drawing.Point(7, 239);
+            this.chkLiveGraph.Location = new System.Drawing.Point(7, 238);
             this.chkLiveGraph.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
             this.chkLiveGraph.Name = "chkLiveGraph";
             this.chkLiveGraph.Size = new System.Drawing.Size(192, 17);
@@ -406,7 +409,7 @@
             this.chkFlipGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chkFlipGraph.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.chkFlipGraph, 2);
-            this.chkFlipGraph.Location = new System.Drawing.Point(238, 239);
+            this.chkFlipGraph.Location = new System.Drawing.Point(238, 238);
             this.chkFlipGraph.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
             this.chkFlipGraph.Name = "chkFlipGraph";
             this.chkFlipGraph.Size = new System.Drawing.Size(192, 17);
@@ -457,6 +460,19 @@
             this.lblBestSegmentColor.TabIndex = 31;
             this.lblBestSegmentColor.Text = "Best Segment Color:";
             // 
+            // chkGraphDeltaColor
+            // 
+            this.chkGraphDeltaColor.AllowDrop = true;
+            this.chkGraphDeltaColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkGraphDeltaColor.AutoSize = true;
+            this.chkGraphDeltaColor.Location = new System.Drawing.Point(7, 267);
+            this.chkGraphDeltaColor.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
+            this.chkGraphDeltaColor.Name = "chkGraphDeltaColor";
+            this.chkGraphDeltaColor.Size = new System.Drawing.Size(192, 17);
+            this.chkGraphDeltaColor.TabIndex = 32;
+            this.chkGraphDeltaColor.Text = "Graph Delta Color";
+            this.chkGraphDeltaColor.UseVisualStyleBackColor = true;
+            // 
             // GraphSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -464,7 +480,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "GraphSettings";
             this.Padding = new System.Windows.Forms.Padding(7);
-            this.Size = new System.Drawing.Size(476, 277);
+            this.Size = new System.Drawing.Size(476, 305);
             this.Load += new System.EventHandler(this.GraphSettings_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -505,5 +521,6 @@
         private System.Windows.Forms.Button btnBestSegmentColor;
         private System.Windows.Forms.CheckBox chkShowBestSegments;
         private System.Windows.Forms.Label lblBestSegmentColor;
+        private System.Windows.Forms.CheckBox chkGraphDeltaColor;
     }
 }
