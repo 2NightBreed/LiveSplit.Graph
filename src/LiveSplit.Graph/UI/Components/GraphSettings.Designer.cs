@@ -60,8 +60,12 @@
             this.lblBestSegmentColor = new System.Windows.Forms.Label();
             this.chkGraphDeltaColor = new System.Windows.Forms.CheckBox();
             this.chkGraphDeltaFillColor = new System.Windows.Forms.CheckBox();
+            this.chkSplitIcons = new System.Windows.Forms.CheckBox();
+            this.lblIconSize = new System.Windows.Forms.Label();
+            this.nmcIconSize = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmcIconSize)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -104,10 +108,13 @@
             this.tableLayoutPanel1.Controls.Add(this.lblBestSegmentColor, 3, 7);
             this.tableLayoutPanel1.Controls.Add(this.chkGraphDeltaColor, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.chkGraphDeltaFillColor, 3, 9);
+            this.tableLayoutPanel1.Controls.Add(this.chkSplitIcons, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.lblIconSize, 3, 10);
+            this.tableLayoutPanel1.Controls.Add(this.nmcIconSize, 4, 10);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 10;
+            this.tableLayoutPanel1.RowCount = 11;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
@@ -118,7 +125,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 291);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 319);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnBestSegmentColor
@@ -487,6 +495,37 @@
             this.chkGraphDeltaFillColor.Text = "Graph Delta Fill Color";
             this.chkGraphDeltaFillColor.UseVisualStyleBackColor = true;
             // 
+            // chkSplitIcons
+            // 
+            this.chkSplitIcons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkSplitIcons.AutoSize = true;
+            this.chkSplitIcons.Location = new System.Drawing.Point(7, 296);
+            this.chkSplitIcons.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
+            this.chkSplitIcons.Name = "chkSplitIcons";
+            this.chkSplitIcons.Size = new System.Drawing.Size(192, 17);
+            this.chkSplitIcons.TabIndex = 34;
+            this.chkSplitIcons.Text = "Split Icons";
+            this.chkSplitIcons.UseVisualStyleBackColor = true;
+            this.chkSplitIcons.CheckedChanged += new System.EventHandler(this.chkSplitIcons_CheckedChanged);
+            // 
+            // lblIconSize
+            // 
+            this.lblIconSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblIconSize.AutoSize = true;
+            this.lblIconSize.Location = new System.Drawing.Point(234, 298);
+            this.lblIconSize.Name = "lblIconSize";
+            this.lblIconSize.Size = new System.Drawing.Size(144, 13);
+            this.lblIconSize.TabIndex = 35;
+            this.lblIconSize.Text = "Icon Size";
+            // 
+            // nmcIconSize
+            // 
+            this.nmcIconSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.nmcIconSize.Location = new System.Drawing.Point(384, 294);
+            this.nmcIconSize.Name = "nmcIconSize";
+            this.nmcIconSize.Size = new System.Drawing.Size(46, 20);
+            this.nmcIconSize.TabIndex = 36;
+            // 
             // GraphSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -494,11 +533,12 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "GraphSettings";
             this.Padding = new System.Windows.Forms.Padding(7);
-            this.Size = new System.Drawing.Size(476, 305);
+            this.Size = new System.Drawing.Size(476, 333);
             this.Load += new System.EventHandler(this.GraphSettings_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmcIconSize)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -537,5 +577,8 @@
         private System.Windows.Forms.Label lblBestSegmentColor;
         private System.Windows.Forms.CheckBox chkGraphDeltaColor;
         private System.Windows.Forms.CheckBox chkGraphDeltaFillColor;
+        private System.Windows.Forms.CheckBox chkSplitIcons;
+        private System.Windows.Forms.Label lblIconSize;
+        private System.Windows.Forms.NumericUpDown nmcIconSize;
     }
 }

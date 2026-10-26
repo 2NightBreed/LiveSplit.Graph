@@ -14,6 +14,7 @@ public partial class GraphSettings : UserControl, ICloneable
     public float GraphHeightScaled { get => GraphHeight / 5; set => GraphHeight = value * 5; }
     public float GraphWidth { get; set; }
     public float GraphWidthScaled { get => GraphWidth / 10; set => GraphWidth = value * 10; }
+    public int IconSize { get; set; }
 
     public Color BehindGraphColor { get; set; }
     public Color AheadGraphColor { get; set; }
@@ -32,6 +33,7 @@ public partial class GraphSettings : UserControl, ICloneable
     public bool ShowBestSegments { get; set; }
     public bool GraphDeltaColor { get; set; }
     public bool GraphDeltaFillColor { get; set; }
+    public bool SplitIcons { get; set; }
 
     public LayoutMode Mode { get; set; }
 
@@ -43,6 +45,7 @@ public partial class GraphSettings : UserControl, ICloneable
         InitializeComponent();
         GraphHeight = 120;
         GraphWidth = 180;
+        IconSize = 16;
         BehindGraphColor = Color.FromArgb(115, 40, 40);
         AheadGraphColor = Color.FromArgb(40, 115, 52);
         GridlinesColor = Color.FromArgb(0x50, 0x0, 0x0, 0x0);
@@ -59,8 +62,10 @@ public partial class GraphSettings : UserControl, ICloneable
         ShowBestSegments = false;
         GraphDeltaColor = false;
         GraphDeltaFillColor = false;
+        SplitIcons = false;
         Comparison = "Current Comparison";
 
+        nmcIconSize.DataBindings.Add("Value", this, "IconSize", false, DataSourceUpdateMode.OnPropertyChanged);
         btnAheadColor.DataBindings.Add("BackColor", this, "AheadGraphColor", false, DataSourceUpdateMode.OnPropertyChanged);
         btnBehindColor.DataBindings.Add("BackColor", this, "BehindGraphColor", false, DataSourceUpdateMode.OnPropertyChanged);
         btnGridlinesColor.DataBindings.Add("BackColor", this, "GridlinesColor", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -77,6 +82,7 @@ public partial class GraphSettings : UserControl, ICloneable
         chkShowBestSegments.DataBindings.Add("Checked", this, "ShowBestSegments", false, DataSourceUpdateMode.OnPropertyChanged);
         chkGraphDeltaColor.DataBindings.Add("Checked", this, "GraphDeltaColor", false, DataSourceUpdateMode.OnPropertyChanged);
         chkGraphDeltaFillColor.DataBindings.Add("Checked", this, "GraphDeltaFillColor", false, DataSourceUpdateMode.OnPropertyChanged);
+        chkSplitIcons.DataBindings.Add("Checked", this, "SplitIcons", false, DataSourceUpdateMode.OnPropertyChanged);
         chkShowBestSegments.CheckedChanged += chkShowBestSegments_CheckedChanged;
         cmbComparison.SelectedIndexChanged += cmbComparison_SelectedIndexChanged;
         cmbComparison.DataBindings.Add("SelectedItem", this, "Comparison", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -127,6 +133,7 @@ public partial class GraphSettings : UserControl, ICloneable
 
         GraphHeight = SettingsHelper.ParseFloat(element["Height"]);
         GraphWidth = SettingsHelper.ParseFloat(element["Width"]);
+        IconSize = SettingsHelper.ParseInt(element["IconSize"], 16);
         BehindGraphColor = SettingsHelper.ParseColor(element["BehindGraphColor"]);
         AheadGraphColor = SettingsHelper.ParseColor(element["AheadGraphColor"]);
         GridlinesColor = SettingsHelper.ParseColor(element["GridlinesColor"]);
@@ -135,6 +142,7 @@ public partial class GraphSettings : UserControl, ICloneable
         ShowBestSegments = SettingsHelper.ParseBool(element["ShowBestSegments"], false);
         GraphDeltaColor = SettingsHelper.ParseBool(element["GraphDeltaColor"], false);
         GraphDeltaFillColor = SettingsHelper.ParseBool(element["GraphDeltaFillColor"], false);
+        SplitIcons = SettingsHelper.ParseBool(element["SplitIcons"], false);
         GraphGoldColor = SettingsHelper.ParseColor(element["GraphGoldColor"], Color.Gold);
         GraphColor = SettingsHelper.ParseColor(element["GraphColor"]);
         ShadowsColor = SettingsHelper.ParseColor(element["ShadowsColor"]);
@@ -174,6 +182,7 @@ public partial class GraphSettings : UserControl, ICloneable
         return SettingsHelper.CreateSetting(document, parent, "Version", "1.5") ^
         SettingsHelper.CreateSetting(document, parent, "Height", GraphHeight) ^
         SettingsHelper.CreateSetting(document, parent, "Width", GraphWidth) ^
+        SettingsHelper.CreateSetting(document, parent, "IconSize", IconSize) ^
         SettingsHelper.CreateSetting(document, parent, "BehindGraphColor", BehindGraphColor) ^
         SettingsHelper.CreateSetting(document, parent, "AheadGraphColor", AheadGraphColor) ^
         SettingsHelper.CreateSetting(document, parent, "GridlinesColor", GridlinesColor) ^
@@ -190,6 +199,7 @@ public partial class GraphSettings : UserControl, ICloneable
         SettingsHelper.CreateSetting(document, parent, "ShowBestSegments", ShowBestSegments) ^
         SettingsHelper.CreateSetting(document, parent, "GraphDeltaColor", GraphDeltaColor) ^
         SettingsHelper.CreateSetting(document, parent, "GraphDeltaFillColor", GraphDeltaFillColor) ^
+        SettingsHelper.CreateSetting(document, parent, "SplitIcons", SplitIcons) ^
         SettingsHelper.CreateSetting(document, parent, "GraphGoldColor", GraphGoldColor);
     }
 
@@ -214,5 +224,10 @@ public partial class GraphSettings : UserControl, ICloneable
     private void ColorButtonClick(object sender, EventArgs e)
     {
         SettingsHelper.ColorButtonClick((Button)sender, this);
+    }
+
+    private void chkSplitIcons_CheckedChanged(object sender, EventArgs e)
+    {
+        lblIconSize.Enabled = nmcIconSize.Enabled = chkSplitIcons.Checked;
     }
 }
