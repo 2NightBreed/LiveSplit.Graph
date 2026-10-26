@@ -263,7 +263,8 @@ public class GraphComponent : IComponent
             DrawLineShadowed(g, pen, previousCircle.X, previousCircle.Y, circle.X, circle.Y, Settings.FlipGraph);
             if (!finalDelta)
             {
-                DrawEllipseShadowed(g, brush, previousCircle.X - 2.5f, previousCircle.Y - 2.5f, 5, 5, Settings.FlipGraph);
+                var ellipseSize = Settings.EndPointSize;
+                DrawEllipseShadowed(g, brush, previousCircle.X - (ellipseSize / 2f), previousCircle.Y - (ellipseSize / 2f), ellipseSize, ellipseSize, Settings.FlipGraph);
             }
 
             previousCircle = circle;
@@ -328,7 +329,8 @@ public class GraphComponent : IComponent
                 }
                 else
                 {
-                    DrawEllipseShadowed(g, brush, previousIcon.Item1.X - 2.5f, previousIcon.Item1.Y - 2.5f, 5, 5, Settings.FlipGraph);
+                    var ellipseSize = Settings.EndPointSize;
+                    DrawEllipseShadowed(g, brush, previousIcon.Item1.X - (ellipseSize / 2f), previousIcon.Item1.Y - (ellipseSize / 2f), ellipseSize, ellipseSize, Settings.FlipGraph);
                 }
             }
 
