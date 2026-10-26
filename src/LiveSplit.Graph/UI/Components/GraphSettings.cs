@@ -31,6 +31,7 @@ public partial class GraphSettings : UserControl, ICloneable
     public bool FlipGraph { get; set; }
     public bool ShowBestSegments { get; set; }
     public bool GraphDeltaColor { get; set; }
+    public bool GraphDeltaFillColor { get; set; }
 
     public LayoutMode Mode { get; set; }
 
@@ -57,6 +58,7 @@ public partial class GraphSettings : UserControl, ICloneable
         FlipGraph = false;
         ShowBestSegments = false;
         GraphDeltaColor = false;
+        GraphDeltaFillColor = false;
         Comparison = "Current Comparison";
 
         btnAheadColor.DataBindings.Add("BackColor", this, "AheadGraphColor", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -74,6 +76,7 @@ public partial class GraphSettings : UserControl, ICloneable
         chkFlipGraph.DataBindings.Add("Checked", this, "FlipGraph", false, DataSourceUpdateMode.OnPropertyChanged);
         chkShowBestSegments.DataBindings.Add("Checked", this, "ShowBestSegments", false, DataSourceUpdateMode.OnPropertyChanged);
         chkGraphDeltaColor.DataBindings.Add("Checked", this, "GraphDeltaColor", false, DataSourceUpdateMode.OnPropertyChanged);
+        chkGraphDeltaFillColor.DataBindings.Add("Checked", this, "GraphDeltaFillColor", false, DataSourceUpdateMode.OnPropertyChanged);
         chkShowBestSegments.CheckedChanged += chkShowBestSegments_CheckedChanged;
         cmbComparison.SelectedIndexChanged += cmbComparison_SelectedIndexChanged;
         cmbComparison.DataBindings.Add("SelectedItem", this, "Comparison", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -131,6 +134,7 @@ public partial class GraphSettings : UserControl, ICloneable
         Comparison = SettingsHelper.ParseString(element["Comparison"], "Current Comparison");
         ShowBestSegments = SettingsHelper.ParseBool(element["ShowBestSegments"], false);
         GraphDeltaColor = SettingsHelper.ParseBool(element["GraphDeltaColor"], false);
+        GraphDeltaFillColor = SettingsHelper.ParseBool(element["GraphDeltaFillColor"], false);
         GraphGoldColor = SettingsHelper.ParseColor(element["GraphGoldColor"], Color.Gold);
         GraphColor = SettingsHelper.ParseColor(element["GraphColor"]);
         ShadowsColor = SettingsHelper.ParseColor(element["ShadowsColor"]);
@@ -185,6 +189,7 @@ public partial class GraphSettings : UserControl, ICloneable
         SettingsHelper.CreateSetting(document, parent, "Comparison", Comparison) ^
         SettingsHelper.CreateSetting(document, parent, "ShowBestSegments", ShowBestSegments) ^
         SettingsHelper.CreateSetting(document, parent, "GraphDeltaColor", GraphDeltaColor) ^
+        SettingsHelper.CreateSetting(document, parent, "GraphDeltaFillColor", GraphDeltaFillColor) ^
         SettingsHelper.CreateSetting(document, parent, "GraphGoldColor", GraphGoldColor);
     }
 

@@ -129,7 +129,15 @@ public class GraphComponent : IComponent
                 if (Deltas[y] != null)
                 {
                     CalculateRightSideCoordinates(state, width, TotalDelta, graphEdge, graphHeight, ref heightTwo, ref widthTwo, y);
-                    DrawFillBeneathGraph(g, TotalDelta, middle, brush, heightOne, heightTwo, widthOne, widthTwo, y, pointArray);
+                    if (Settings.GraphDeltaFillColor)
+                    {
+                        DrawSplitColorFill(g, state, comparison, middle, heightOne, heightTwo, widthOne, widthTwo, y);
+                    }
+                    else
+                    {
+                        DrawFillBeneathGraph(g, TotalDelta, middle, brush, heightOne, heightTwo, widthOne, widthTwo, y, pointArray);
+                    }
+
                     AddGraphNode(g, state, comparison, pen, circleList, heightOne, heightTwo, widthOne, widthTwo, y);
                     CalculateLeftSideCoordinates(state, width, TotalDelta, graphEdge, graphHeight, ref heightOne, ref widthOne, y);
                 }
@@ -143,6 +151,66 @@ public class GraphComponent : IComponent
 
             DrawCirclesAndLines(g, state, width, comparison, pen, brush, circleList);
         }
+    }
+
+    private void DrawSplitColorFill(Graphics g, LiveSplitState state, string comparison, float middle, float heightOne, float heightTwo, float widthOne, float widthTwo, int y)
+    {
+        bool isPartial = y == Deltas.Count - 1 && IsLiveDeltaActive;
+        Color splitColor = LiveSplitStateHelper.GetSplitColor(state, Deltas[y].Value, y, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
+        if (!isPartial && CheckBestSegment(state, y, state.CurrentTimingMethod))
+        {
+            splitColor = Settings.GraphGoldColor;
+        }
+
+        if ((heightOne - middle) * (heightTwo - middle) >= 0)
+        {
+            if (heightOne == middle && heightTwo == middle)
+            {
+                return;
+            }
+
+            bool isAhead = heightTwo > middle || (heightTwo == middle && heightOne > middle);
+            Color fillColor = isPartial
+                ? (isAhead ? Settings.PartialFillColorAhead : Settings.PartialFillColorBehind)
+                : (isAhead ? Settings.CompleteFillColorAhead : Settings.CompleteFillColorBehind);
+
+            using var brush = new SolidBrush(Color.FromArgb(fillColor.A, splitColor));
+            g.FillPolygon(brush, new PointF[]
+            {
+                new(widthOne, middle),
+                new(widthOne, heightOne),
+                new(widthTwo, heightTwo),
+                new(widthTwo, middle)
+            });
+
+            return;
+        }
+
+        float ratio = (heightOne - middle) / (heightOne - heightTwo);
+        float middleX = widthOne + ((widthTwo - widthOne) * ratio);
+        bool firstHalfAhead = heightOne > middle;
+        Color firstFillColor = isPartial
+            ? (firstHalfAhead ? Settings.PartialFillColorAhead : Settings.PartialFillColorBehind)
+            : (firstHalfAhead ? Settings.CompleteFillColorAhead : Settings.CompleteFillColorBehind);
+        Color secondFillColor = isPartial
+            ? (heightTwo > middle ? Settings.PartialFillColorAhead : Settings.PartialFillColorBehind)
+            : (heightTwo > middle ? Settings.CompleteFillColorAhead : Settings.CompleteFillColorBehind);
+
+        using var firstBrush = new SolidBrush(Color.FromArgb(firstFillColor.A, splitColor));
+        g.FillPolygon(firstBrush, new PointF[]
+        {
+            new(widthOne, middle),
+            new(widthOne, heightOne),
+            new(middleX, middle)
+        });
+
+        using var secondBrush = new SolidBrush(Color.FromArgb(secondFillColor.A, splitColor));
+        g.FillPolygon(secondBrush, new PointF[]
+        {
+                new(middleX, middle),
+                new(widthTwo, heightTwo),
+                new(widthTwo, middle)
+        });
     }
 
     private void DrawCirclesAndLines(Graphics g, LiveSplitState state, float width, string comparison, Pen pen, SolidBrush brush, List<PointF> circleList)
