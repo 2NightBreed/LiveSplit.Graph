@@ -34,6 +34,7 @@ public partial class GraphSettings : UserControl, ICloneable
     public bool GraphDeltaColor { get; set; }
     public bool GraphDeltaFillColor { get; set; }
     public bool SplitIcons { get; set; }
+    public bool GrayscaleIcons { get; set; }
 
     public LayoutMode Mode { get; set; }
 
@@ -63,6 +64,7 @@ public partial class GraphSettings : UserControl, ICloneable
         GraphDeltaColor = false;
         GraphDeltaFillColor = false;
         SplitIcons = false;
+        GrayscaleIcons = false;
         Comparison = "Current Comparison";
 
         nmcIconSize.DataBindings.Add("Value", this, "IconSize", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -83,6 +85,7 @@ public partial class GraphSettings : UserControl, ICloneable
         chkGraphDeltaColor.DataBindings.Add("Checked", this, "GraphDeltaColor", false, DataSourceUpdateMode.OnPropertyChanged);
         chkGraphDeltaFillColor.DataBindings.Add("Checked", this, "GraphDeltaFillColor", false, DataSourceUpdateMode.OnPropertyChanged);
         chkSplitIcons.DataBindings.Add("Checked", this, "SplitIcons", false, DataSourceUpdateMode.OnPropertyChanged);
+        chkGrayscaleIcons.DataBindings.Add("Checked", this, "GrayscaleIcons", false, DataSourceUpdateMode.OnPropertyChanged);
         chkShowBestSegments.CheckedChanged += chkShowBestSegments_CheckedChanged;
         cmbComparison.SelectedIndexChanged += cmbComparison_SelectedIndexChanged;
         cmbComparison.DataBindings.Add("SelectedItem", this, "Comparison", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -143,6 +146,7 @@ public partial class GraphSettings : UserControl, ICloneable
         GraphDeltaColor = SettingsHelper.ParseBool(element["GraphDeltaColor"], false);
         GraphDeltaFillColor = SettingsHelper.ParseBool(element["GraphDeltaFillColor"], false);
         SplitIcons = SettingsHelper.ParseBool(element["SplitIcons"], false);
+        GrayscaleIcons = SettingsHelper.ParseBool(element["GrayscaleIcons"], false);
         GraphGoldColor = SettingsHelper.ParseColor(element["GraphGoldColor"], Color.Gold);
         GraphColor = SettingsHelper.ParseColor(element["GraphColor"]);
         ShadowsColor = SettingsHelper.ParseColor(element["ShadowsColor"]);
@@ -200,6 +204,7 @@ public partial class GraphSettings : UserControl, ICloneable
         SettingsHelper.CreateSetting(document, parent, "GraphDeltaColor", GraphDeltaColor) ^
         SettingsHelper.CreateSetting(document, parent, "GraphDeltaFillColor", GraphDeltaFillColor) ^
         SettingsHelper.CreateSetting(document, parent, "SplitIcons", SplitIcons) ^
+        SettingsHelper.CreateSetting(document, parent, "GrayscaleIcons", GrayscaleIcons) ^
         SettingsHelper.CreateSetting(document, parent, "GraphGoldColor", GraphGoldColor);
     }
 
@@ -228,6 +233,6 @@ public partial class GraphSettings : UserControl, ICloneable
 
     private void chkSplitIcons_CheckedChanged(object sender, EventArgs e)
     {
-        lblIconSize.Enabled = nmcIconSize.Enabled = chkSplitIcons.Checked;
+        lblIconSize.Enabled = nmcIconSize.Enabled = chkGrayscaleIcons.Enabled = chkSplitIcons.Checked;
     }
 }
