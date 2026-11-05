@@ -138,7 +138,7 @@ public class GraphComponent : IComponent
                         DrawSplitColorFill(g, state, comparison, middle, heightOne, heightTwo, widthOne, widthTwo, y);
                     }
 
-                    AddGraphNode(g, state, comparison, pen, circleList, heightOne, heightTwo, widthOne, widthTwo, y);
+                    AddGraphNode(g, circleList, heightTwo, widthTwo, y);
                     CalculateLeftSideCoordinates(state, width, TotalDelta, graphEdge, graphHeight, ref heightOne, ref widthOne, y);
                 }
                 else
@@ -255,7 +255,7 @@ public class GraphComponent : IComponent
         }
     }
 
-    private void AddGraphNode(Graphics g, LiveSplitState state, string comparison, Pen pen, List<PointF> circleList, float heightOne, float heightTwo, float widthOne, float widthTwo, int y)
+    private void AddGraphNode(Graphics g, List<PointF> circleList, float heightTwo, float widthTwo, int y)
     {
         circleList.Add(new PointF(widthTwo, heightTwo));
     }
