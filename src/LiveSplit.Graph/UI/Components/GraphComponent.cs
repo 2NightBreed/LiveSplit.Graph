@@ -283,7 +283,12 @@ public class GraphComponent : IComponent
         bool isLiveNode = y == Deltas.Count - 1 && IsLiveDeltaActive;
         int splitIndex = isLiveNode ? state.CurrentSplitIndex : y;
 
-        Image icon = splitIndex > -1 && splitIndex < state.Run.Count ? state.Run[splitIndex].Icon : null;
+        Image icon = null;
+        if (splitIndex > -1 && splitIndex < state.Run.Count)
+        {
+            icon = Settings.LastSubsplitIcons && state.Run[splitIndex].IsLastSubSplit ? state.Run[splitIndex].LastSubsplitIcon : state.Run[splitIndex].Icon;
+        }
+
         iconList.Add(new Tuple<PointF, Image>(new PointF(widthTwo, heightTwo), icon));
     }
 
