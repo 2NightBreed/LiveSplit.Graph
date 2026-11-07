@@ -66,6 +66,7 @@
             this.chkLastSubsplitIcons = new System.Windows.Forms.CheckBox();
             this.lblEndPointSize = new System.Windows.Forms.Label();
             this.nmcEndPointSize = new System.Windows.Forms.NumericUpDown();
+            this.chkGrayscaleIcons = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmcIconSize)).BeginInit();
@@ -118,10 +119,11 @@
             this.tableLayoutPanel1.Controls.Add(this.chkLastSubsplitIcons, 0, 11);
             this.tableLayoutPanel1.Controls.Add(this.lblEndPointSize, 3, 11);
             this.tableLayoutPanel1.Controls.Add(this.nmcEndPointSize, 4, 11);
+            this.tableLayoutPanel1.Controls.Add(this.chkGrayscaleIcons, 0, 12);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 12;
+            this.tableLayoutPanel1.RowCount = 13;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
@@ -134,7 +136,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 347);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(462, 377);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnBestSegmentColor
@@ -565,6 +568,18 @@
             this.nmcEndPointSize.Size = new System.Drawing.Size(46, 20);
             this.nmcEndPointSize.TabIndex = 39;
             // 
+            // chkGrayscaleIcons
+            // 
+            this.chkGrayscaleIcons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkGrayscaleIcons.AutoSize = true;
+            this.chkGrayscaleIcons.Location = new System.Drawing.Point(7, 354);
+            this.chkGrayscaleIcons.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
+            this.chkGrayscaleIcons.Name = "chkGrayscaleIcons";
+            this.chkGrayscaleIcons.Size = new System.Drawing.Size(192, 17);
+            this.chkGrayscaleIcons.TabIndex = 40;
+            this.chkGrayscaleIcons.Text = "Grayscale Icons";
+            this.chkGrayscaleIcons.UseVisualStyleBackColor = true;
+            // 
             // GraphSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -572,7 +587,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "GraphSettings";
             this.Padding = new System.Windows.Forms.Padding(7);
-            this.Size = new System.Drawing.Size(476, 361);
+            this.Size = new System.Drawing.Size(476, 391);
             this.Load += new System.EventHandler(this.GraphSettings_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -623,5 +638,6 @@
         private System.Windows.Forms.CheckBox chkLastSubsplitIcons;
         private System.Windows.Forms.Label lblEndPointSize;
         private System.Windows.Forms.NumericUpDown nmcEndPointSize;
+        private System.Windows.Forms.CheckBox chkGrayscaleIcons;
     }
 }
