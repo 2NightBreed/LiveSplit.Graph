@@ -37,6 +37,7 @@ public partial class GraphSettings : UserControl, ICloneable
     public bool SplitIcons { get; set; }
     public bool LastSubsplitIcons { get; set; }
     public bool GrayscaleIcons { get; set; }
+    public bool EndPointDeltaColor { get; set; }
 
     public LayoutMode Mode { get; set; }
 
@@ -69,6 +70,7 @@ public partial class GraphSettings : UserControl, ICloneable
         SplitIcons = false;
         LastSubsplitIcons = false;
         GrayscaleIcons = false;
+        EndPointDeltaColor = false;
         Comparison = "Current Comparison";
 
         nmcIconSize.DataBindings.Add("Value", this, "IconSize", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -89,6 +91,7 @@ public partial class GraphSettings : UserControl, ICloneable
         chkShowBestSegments.DataBindings.Add("Checked", this, "ShowBestSegments", false, DataSourceUpdateMode.OnPropertyChanged);
         chkGraphDeltaColor.DataBindings.Add("Checked", this, "GraphDeltaColor", false, DataSourceUpdateMode.OnPropertyChanged);
         chkGraphDeltaFillColor.DataBindings.Add("Checked", this, "GraphDeltaFillColor", false, DataSourceUpdateMode.OnPropertyChanged);
+        chkEndPointDeltaColor.DataBindings.Add("Checked", this, "EndPointDeltaColor", false, DataSourceUpdateMode.OnPropertyChanged);
         chkSplitIcons.DataBindings.Add("Checked", this, "SplitIcons", false, DataSourceUpdateMode.OnPropertyChanged);
         chkGrayscaleIcons.DataBindings.Add("Checked", this, "GrayscaleIcons", false, DataSourceUpdateMode.OnPropertyChanged);
         chkLastSubsplitIcons.DataBindings.Add("Checked", this, "LastSubsplitIcons", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -152,6 +155,7 @@ public partial class GraphSettings : UserControl, ICloneable
         ShowBestSegments = SettingsHelper.ParseBool(element["ShowBestSegments"], false);
         GraphDeltaColor = SettingsHelper.ParseBool(element["GraphDeltaColor"], false);
         GraphDeltaFillColor = SettingsHelper.ParseBool(element["GraphDeltaFillColor"], false);
+        EndPointDeltaColor = SettingsHelper.ParseBool(element["EndPointDeltaColor"], false);
         SplitIcons = SettingsHelper.ParseBool(element["SplitIcons"], false);
         LastSubsplitIcons = SettingsHelper.ParseBool(element["LastSubsplitIcons"], false);
         GrayscaleIcons = SettingsHelper.ParseBool(element["GrayscaleIcons"], false);
@@ -212,6 +216,7 @@ public partial class GraphSettings : UserControl, ICloneable
         SettingsHelper.CreateSetting(document, parent, "ShowBestSegments", ShowBestSegments) ^
         SettingsHelper.CreateSetting(document, parent, "GraphDeltaColor", GraphDeltaColor) ^
         SettingsHelper.CreateSetting(document, parent, "GraphDeltaFillColor", GraphDeltaFillColor) ^
+        SettingsHelper.CreateSetting(document, parent, "EndPointDeltaColor", EndPointDeltaColor) ^
         SettingsHelper.CreateSetting(document, parent, "SplitIcons", SplitIcons) ^
         SettingsHelper.CreateSetting(document, parent, "LastSubsplitIcons", LastSubsplitIcons) ^
         SettingsHelper.CreateSetting(document, parent, "GrayscaleIcons", GrayscaleIcons) ^
@@ -249,6 +254,6 @@ public partial class GraphSettings : UserControl, ICloneable
     private void chkSplitIcons_CheckedChanged(object sender, EventArgs e)
     {
         lblIconSize.Enabled = nmcIconSize.Enabled = chkLastSubsplitIcons.Enabled = chkGrayscaleIcons.Enabled = chkSplitIcons.Checked;
-        lblEndPointSize.Enabled = nmcEndPointSize.Enabled = !chkSplitIcons.Checked;
+        lblEndPointSize.Enabled = nmcEndPointSize.Enabled = chkEndPointDeltaColor.Enabled = !chkSplitIcons.Checked;
     }
 }

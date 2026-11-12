@@ -67,6 +67,7 @@
             this.lblEndPointSize = new System.Windows.Forms.Label();
             this.nmcEndPointSize = new System.Windows.Forms.NumericUpDown();
             this.chkGrayscaleIcons = new System.Windows.Forms.CheckBox();
+            this.chkEndPointDeltaColor = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nmcIconSize)).BeginInit();
@@ -120,6 +121,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lblEndPointSize, 3, 11);
             this.tableLayoutPanel1.Controls.Add(this.nmcEndPointSize, 4, 11);
             this.tableLayoutPanel1.Controls.Add(this.chkGrayscaleIcons, 0, 12);
+            this.tableLayoutPanel1.Controls.Add(this.chkEndPointDeltaColor, 3, 12);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -580,6 +582,18 @@
             this.chkGrayscaleIcons.Text = "Grayscale Icons";
             this.chkGrayscaleIcons.UseVisualStyleBackColor = true;
             // 
+            // chkEndPointDeltaColor
+            // 
+            this.chkEndPointDeltaColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkEndPointDeltaColor.AutoSize = true;
+            this.chkEndPointDeltaColor.Location = new System.Drawing.Point(238, 354);
+            this.chkEndPointDeltaColor.Margin = new System.Windows.Forms.Padding(7, 3, 3, 3);
+            this.chkEndPointDeltaColor.Name = "chkEndPointDeltaColor";
+            this.chkEndPointDeltaColor.Size = new System.Drawing.Size(140, 17);
+            this.chkEndPointDeltaColor.TabIndex = 41;
+            this.chkEndPointDeltaColor.Text = "End Point Delta Color";
+            this.chkEndPointDeltaColor.UseVisualStyleBackColor = true;
+            // 
             // GraphSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -639,5 +653,6 @@
         private System.Windows.Forms.Label lblEndPointSize;
         private System.Windows.Forms.NumericUpDown nmcEndPointSize;
         private System.Windows.Forms.CheckBox chkGrayscaleIcons;
+        private System.Windows.Forms.CheckBox chkEndPointDeltaColor;
     }
 }

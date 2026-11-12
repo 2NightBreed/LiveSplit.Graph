@@ -249,13 +249,20 @@ public class GraphComponent : IComponent
                 i--;
             }
 
-            Color graphColor = Settings.GraphColor;
+            Color graphDeltaColor = Settings.GraphColor;
+            Color graphEndPointColor = Settings.GraphColor;
             if (Settings.GraphDeltaColor)
             {
-                graphColor = LiveSplitStateHelper.GetSplitColor(state, Deltas[i].Value, i, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
+                graphDeltaColor = LiveSplitStateHelper.GetSplitColor(state, Deltas[i].Value, i, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
             }
 
-            pen.Color = brush.Color = graphColor;
+            if (Settings.EndPointDeltaColor)
+            {
+                graphEndPointColor = LiveSplitStateHelper.GetSplitColor(state, Deltas[i].Value, i, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
+            }
+
+            pen.Color = graphDeltaColor;
+            brush.Color = graphEndPointColor;
             bool finalDelta = previousCircle.X == width && IsLiveDeltaActive;
             if (!finalDelta && CheckBestSegment(state, i, state.CurrentTimingMethod))
             {
@@ -310,13 +317,21 @@ public class GraphComponent : IComponent
                 i--;
             }
 
-            Color graphColor = Settings.GraphColor;
+            Color graphDeltaColor = Settings.GraphColor;
+            Color graphEndPointColor = Settings.GraphColor;
             if (Settings.GraphDeltaColor)
             {
-                graphColor = LiveSplitStateHelper.GetSplitColor(state, Deltas[i].Value, i, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
+                graphDeltaColor = LiveSplitStateHelper.GetSplitColor(state, Deltas[i].Value, i, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
             }
 
-            pen.Color = brush.Color = graphColor;
+
+            if (Settings.EndPointDeltaColor)
+            {
+                graphEndPointColor = LiveSplitStateHelper.GetSplitColor(state, Deltas[i].Value, i, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
+            }
+
+            pen.Color = graphDeltaColor;
+            brush.Color = graphEndPointColor;
             bool finalDelta = previousIcon.Item1.X == width && IsLiveDeltaActive;
             if (!finalDelta && CheckBestSegment(state, i, state.CurrentTimingMethod))
             {
