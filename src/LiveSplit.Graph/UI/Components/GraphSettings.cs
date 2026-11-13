@@ -246,6 +246,11 @@ public partial class GraphSettings : UserControl, ICloneable
         SettingsHelper.ColorButtonClick((Button)sender, this);
     }
 
+    private void chkGraphDeltaColor_CheckedChanged(object sender, EventArgs e)
+    {
+        btnBestSegmentColor.Enabled = lblBestSegmentColor.Enabled = chkShowBestSegments.Enabled = chkEndPointDeltaColor.Enabled = chkGraphDeltaColor.Checked;
+    }
+
     private void chkGraphDeltaFillColor_CheckedChanged(object sender, EventArgs e)
     {
         label5.Enabled = btnPartialColorBehind.Enabled = label6.Enabled = btnCompleteColorBehind.Enabled = label9.Enabled = btnPartialColorAhead.Enabled = label10.Enabled = btnCompleteColorAhead.Enabled = !chkGraphDeltaFillColor.Checked;

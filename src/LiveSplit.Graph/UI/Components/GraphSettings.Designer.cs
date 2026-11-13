@@ -495,6 +495,7 @@
             this.chkGraphDeltaColor.TabIndex = 32;
             this.chkGraphDeltaColor.Text = "Graph Delta Color";
             this.chkGraphDeltaColor.UseVisualStyleBackColor = true;
+            this.chkGraphDeltaColor.CheckedChanged += new System.EventHandler(this.chkGraphDeltaColor_CheckedChanged);
             // 
             // chkGraphDeltaFillColor
             // 

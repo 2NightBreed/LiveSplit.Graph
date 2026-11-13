@@ -251,24 +251,27 @@ public class GraphComponent : IComponent
 
             Color graphDeltaColor = Settings.GraphColor;
             Color graphEndPointColor = Settings.GraphColor;
+            bool finalDelta = previousCircle.X == width && IsLiveDeltaActive;
             if (Settings.GraphDeltaColor)
             {
                 graphDeltaColor = LiveSplitStateHelper.GetSplitColor(state, Deltas[i].Value, i, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
+                if (!finalDelta && CheckBestSegment(state, i, state.CurrentTimingMethod))
+                {
+                    graphDeltaColor = Settings.GraphGoldColor;
+                }
             }
 
             if (Settings.EndPointDeltaColor)
             {
                 graphEndPointColor = LiveSplitStateHelper.GetSplitColor(state, Deltas[i].Value, i, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
+                if (!finalDelta && CheckBestSegment(state, i, state.CurrentTimingMethod))
+                {
+                    graphEndPointColor = Settings.GraphGoldColor;
+                }
             }
 
             pen.Color = graphDeltaColor;
             brush.Color = graphEndPointColor;
-            bool finalDelta = previousCircle.X == width && IsLiveDeltaActive;
-            if (!finalDelta && CheckBestSegment(state, i, state.CurrentTimingMethod))
-            {
-                pen.Color = brush.Color = Settings.GraphGoldColor;
-            }
-
             DrawLineShadowed(g, pen, previousCircle.X, previousCircle.Y, circle.X, circle.Y, Settings.FlipGraph);
             if (!finalDelta)
             {
@@ -319,25 +322,28 @@ public class GraphComponent : IComponent
 
             Color graphDeltaColor = Settings.GraphColor;
             Color graphEndPointColor = Settings.GraphColor;
+            bool finalDelta = previousIcon.Item1.X == width && IsLiveDeltaActive;
             if (Settings.GraphDeltaColor)
             {
                 graphDeltaColor = LiveSplitStateHelper.GetSplitColor(state, Deltas[i].Value, i, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
+                if (!finalDelta && CheckBestSegment(state, i, state.CurrentTimingMethod))
+                {
+                    graphDeltaColor = Settings.GraphGoldColor;
+                }
             }
 
 
             if (Settings.EndPointDeltaColor)
             {
                 graphEndPointColor = LiveSplitStateHelper.GetSplitColor(state, Deltas[i].Value, i, true, false, comparison, state.CurrentTimingMethod) ?? Settings.GraphColor;
+                if (!finalDelta && CheckBestSegment(state, i, state.CurrentTimingMethod))
+                {
+                    graphEndPointColor = Settings.GraphGoldColor;
+                }
             }
 
             pen.Color = graphDeltaColor;
             brush.Color = graphEndPointColor;
-            bool finalDelta = previousIcon.Item1.X == width && IsLiveDeltaActive;
-            if (!finalDelta && CheckBestSegment(state, i, state.CurrentTimingMethod))
-            {
-                pen.Color = brush.Color = Settings.GraphGoldColor;
-            }
-
             DrawLineShadowed(g, pen, previousIcon.Item1.X, previousIcon.Item1.Y, icon.Item1.X, icon.Item1.Y, Settings.FlipGraph);
             if (finalDelta && previousIcon.Item2 != null)
             {
